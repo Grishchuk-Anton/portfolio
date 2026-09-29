@@ -1197,6 +1197,7 @@ body.modal-open::after { display: none; }
   grid-template-rows: auto;
   height: auto;
   transform: translate(0, -50%);
+  transition-duration: 640ms;
 }
 .project-drawer:not(.is-open) .project-drawer-content { overflow: hidden; }
 .project-drawer-toggle {
