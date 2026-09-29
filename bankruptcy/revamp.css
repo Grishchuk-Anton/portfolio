@@ -1191,7 +1191,7 @@ body.modal-open::after { display: none; }
   height: 250px;
   color: #fff;
   transform: translate(var(--drawer-panel-width), -50%);
-  transition: transform 320ms var(--motion-ease);
+  transition: transform 320ms var(--motion-ease), height 320ms var(--motion-ease);
 }
 .project-drawer.is-open {
   grid-template-rows: auto;

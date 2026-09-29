@@ -55,10 +55,32 @@ const projectDrawer = document.querySelector("[data-project-drawer]");
 if (projectDrawer) {
   const toggle = projectDrawer.querySelector("[data-project-drawer-toggle]");
   const hoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reduceDrawerMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const setOpen = (open) => {
+    if (projectDrawer.classList.contains("is-open") === open) return;
+    const startHeight = parseFloat(getComputedStyle(projectDrawer).height);
+    projectDrawer.style.height = `${startHeight}px`;
     projectDrawer.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
+    if (reduceDrawerMotion.matches) {
+      projectDrawer.style.removeProperty("height");
+      return;
+    }
+    let endHeight = 250;
+    if (open) {
+      projectDrawer.style.height = "auto";
+      endHeight = parseFloat(getComputedStyle(projectDrawer).height);
+    }
+    projectDrawer.style.height = `${startHeight}px`;
+    projectDrawer.getBoundingClientRect();
+    projectDrawer.style.height = `${endHeight}px`;
   };
+
+  projectDrawer.addEventListener("transitionend", (event) => {
+    if (event.target === projectDrawer && event.propertyName === "height") {
+      projectDrawer.style.removeProperty("height");
+    }
+  });
 
   projectDrawer.addEventListener("pointerenter", () => {
     if (hoverCapable.matches) setOpen(true);
