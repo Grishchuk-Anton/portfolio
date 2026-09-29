@@ -1194,12 +1194,10 @@ body.modal-open::after { display: none; }
   transition: transform 320ms var(--motion-ease), height 320ms var(--motion-ease);
 }
 .project-drawer.is-open {
-  grid-template-rows: auto;
   height: auto;
   transform: translate(0, -50%);
   transition-duration: 640ms;
 }
-.project-drawer:not(.is-open) .project-drawer-content { overflow: hidden; }
 .project-drawer-toggle {
   display: grid;
   place-items: center;
@@ -1222,6 +1220,8 @@ body.modal-open::after { display: none; }
 .project-drawer-content {
   position: relative;
   display: flex;
+  min-height: 0;
+  overflow: hidden;
   flex-direction: column;
   justify-content: center;
   gap: 18px;
@@ -1251,7 +1251,7 @@ body.modal-open::after { display: none; }
     justify-content: flex-start;
     padding: 24px 22px;
   }
-  .project-drawer.is-open .project-drawer-content { overflow-y: auto; }
+  .project-drawer.is-open:not(.is-animating) .project-drawer-content { overflow-y: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   .project-drawer { transition: none; }
